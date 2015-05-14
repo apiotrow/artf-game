@@ -36,6 +36,8 @@ public class PlayerRewardPanel : MonoBehaviour {
 	bool joyControlsOn = false;
 	bool keyboardControlsOn = true;
 
+	private GSManager gsManager;
+
 
 	//joystick/button input setup
 	public void setUpInputs(string upString, string downString, string addString, string subtractString, Controls c){
@@ -49,6 +51,7 @@ public class PlayerRewardPanel : MonoBehaviour {
 	}
 
 	void Start () {
+		gsManager = GameObject.Find("GSManager").GetComponent<GSManager>();
 		lootList = transform.Find("LootScroller/ScrollView/LootList");
 		lootListRect = lootList.GetComponent<RectTransform>();
 		loot = new List<string>();
@@ -59,26 +62,33 @@ public class PlayerRewardPanel : MonoBehaviour {
 
 		//HARD-CODED SECTION
 		//REPLACE WITH THINGS FROM OTHER SCRIPTS
-		loot.Add("testIcon1");
-		loot.Add("testIcon2");
-		loot.Add("testIcon3");
-		loot.Add("testIcon4");
-		loot.Add("testIcon5");
-		loot.Add("testIcon6");
-		loot.Add("testIcon7");
-		loot.Add("testIcon8");
-		total = 13;
+//		loot.Add("testIcon1");
+//		loot.Add("testIcon2");
+//		loot.Add("testIcon3");
+//		loot.Add("testIcon4");
+//		loot.Add("testIcon5");
+//		loot.Add("testIcon6");
+//		loot.Add("testIcon7");
+//		loot.Add("testIcon8");
+//		total = 13;
 		//END HARDCODED SECTION
 
-		populateList();
+		//GSMANAGER IMPORT OF LOOTED ITEMS
+		loot = gsManager.loot;
+		//END GSMANAGER IMPORT OF LOOTED ITEMS
 
-		highlights[0].SetActive(true); //initialize top entry to be highlighted
-		activeEntry = 0;
+		if(loot.Count == 0){
+			print ("Loot list empty");
+		}else{
+			populateList();
 
-		for(int i = 0; i < points.Count; i++){
-			pointsText[i].text = "0";
+			highlights[0].SetActive(true); //initialize top entry to be highlighted
+			activeEntry = 0;
+			
+			for(int i = 0; i < points.Count; i++){
+				pointsText[i].text = "0";
+			}
 		}
-
 	}
 
 	//populate list with looted items
@@ -97,14 +107,15 @@ public class PlayerRewardPanel : MonoBehaviour {
 	}
 
 	void Update(){
-		if(joyControlsOn)
-			takeJoyInputs();
-		if(keyboardControlsOn)
-			takeKeyboardInputs();
+		if(loot.Count != 0){
+			if(joyControlsOn)
+				takeJoyInputs();
+			if(keyboardControlsOn)
+				takeKeyboardInputs();
 
-		updateHighlightedEntry();
-		updateTexts();
-
+			updateHighlightedEntry();
+			updateTexts();
+		}
 	}
 
 	//

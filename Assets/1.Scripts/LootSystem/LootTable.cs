@@ -8,7 +8,12 @@ public static class LootedItems {
 	private static List<string> loot = new List<string>();
 
 	public static void addItemToLoot(string s){
+
+		//may remove if gsManager doesn't neet
 		loot.Add(s);
+
+		//gsManager add
+		GameObject.Find("GSManager").GetComponent<GSManager>().loot.Add(s);
 	}
 
 	public static List<string> getList(){
@@ -186,6 +191,7 @@ public static class LootTable {
 			})},
 		{"BullyTrunk4", new LootList(new Dictionary<string, float>(){
 				{Items.money, 100f},
+<<<<<<< HEAD
 				{Items.utilityBlade, 25f},
 				{Items.pruningBlade, 25f},
 				{Items.plasmaBlade, 25f},
@@ -209,6 +215,11 @@ public static class LootTable {
 				{Items.riotShield, 25f},
 				{Items.lantern, 25f},
 				{Items.riotShield, 25f}
+=======
+				{Items.machineGun, 40f},
+				{Items.huntingRifle, 24f}
+
+>>>>>>> level-loading
 			})},
 		{"BullyTrunk5", new LootList(new Dictionary<string, float>(){
 				{Items.money, 100f},
