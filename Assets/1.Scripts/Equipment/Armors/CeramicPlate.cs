@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Poncho : Armor {
+public class CeramicPlate : Armor {
 	// Used for setting stats for each weapon piece
 	protected override void setInitValues() {
 		base.setInitValues();
